@@ -11,9 +11,32 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AdminModule } from './admin/admin.module';
 import { ContentModule } from './content/content.module';
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from '@hapi/joi';
 
 @Module({
-  imports: [UsersModule, AuthModule, ProductsModule, OrdersModule, CartModule, PaymentsModule, ReviewsModule, NotificationsModule, AdminModule, ContentModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validationSchema: Joi.object({
+        POSTGRES_HOST: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
+        POSTGRES_DB: Joi.string().required(),
+      }),
+    }),
+    UsersModule,
+    AuthModule,
+    ProductsModule,
+    OrdersModule,
+    CartModule,
+    PaymentsModule,
+    ReviewsModule,
+    NotificationsModule,
+    AdminModule,
+    ContentModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
