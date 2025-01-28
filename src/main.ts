@@ -21,7 +21,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS API')
+    .setTitle('NestJS E-Commerce API')
     .setDescription('API description')
     .setVersion('1.0')
     .build();

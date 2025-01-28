@@ -13,12 +13,14 @@ import { AdminModule } from './admin/admin.module';
 import { ContentModule } from './content/content.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
+        PORT: Joi.number().required(),
         POSTGRES_HOST: Joi.string().required(),
         POSTGRES_PORT: Joi.number().required(),
         POSTGRES_USER: Joi.string().required(),
@@ -35,6 +37,7 @@ import * as Joi from '@hapi/joi';
     ReviewsModule,
     NotificationsModule,
     AdminModule,
+    DatabaseModule,
     ContentModule,
   ],
   controllers: [AppController],
