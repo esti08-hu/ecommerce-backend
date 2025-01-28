@@ -12,12 +12,15 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 // import { Request } from 'express';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Roles } from 'src/common/decorators/role.decorator';
+import { Role } from 'src/common/enums/permissions.enums';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('register')
+  @Roles(Role.ADMIN)
+  @Post('create')
   async register(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
