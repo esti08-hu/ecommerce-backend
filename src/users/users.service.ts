@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from './entity/users.entity';
+import { UsersEntity } from './entity/users.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(UserEntity)
-    private usersRepository: Repository<UserEntity>,
+    @InjectRepository(UsersEntity)
+    private usersRepository: Repository<UsersEntity>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<UserEntity | string> {
+  async create(createUserDto: CreateUserDto): Promise<UsersEntity | string> {
     const { email, password, role } = createUserDto;
     const userExist = await this.findOneByEmail(email);
 
@@ -28,11 +28,11 @@ export class UsersService {
     return 'Email already exists';
   }
 
-  async findOneByEmail(email: string): Promise<UserEntity> {
+  async findOneByEmail(email: string): Promise<UsersEntity> {
     return this.usersRepository.findOne({ where: { email } });
   }
 
-  async findOneById(id: number): Promise<UserEntity> {
+  async findOneById(id: number): Promise<UsersEntity> {
     return this.usersRepository.findOne({ where: { id } });
   }
 

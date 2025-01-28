@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../../common/enums/permissions.enums';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { OrderEntity } from 'src/orders/entity/orders.entity';
 
 @Entity('users')
-export class UserEntity {
+export class UsersEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,4 +28,7 @@ export class UserEntity {
 
   @Column({ default: '' })
   profile: string;
+
+  @OneToMany(() => OrderEntity, (order) => order.user)
+  orders: OrderEntity[];
 }

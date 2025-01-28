@@ -39,6 +39,7 @@
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "joi": "^17.13.3",
     "pg": "^8.13.1",
