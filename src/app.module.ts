@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -14,6 +14,7 @@ import { ContentModule } from './content/content.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { DatabaseModule } from './database/database.module';
+import { json } from 'body-parser';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { DatabaseModule } from './database/database.module';
         POSTGRES_DB: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRES_IN: Joi.string().required(),
+        STRIPE_SECRET_KEY: Joi.string().required(),
       }),
     }),
     UsersModule,
@@ -45,4 +47,16 @@ import { DatabaseModule } from './database/database.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(
+        json({
+          verify: (req: any, res, buf) => {
+            req.rawBody = buf;
+          },
+        }),
+      )
+      .forRoutes('payments/webhook');
+  }
+}
