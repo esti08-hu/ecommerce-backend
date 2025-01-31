@@ -9,6 +9,12 @@ export class UsersEntity {
   id: number;
 
   @ApiProperty({
+    example: 'John Doe',
+  })
+  @Column()
+  name: string;
+
+  @ApiProperty({
     example: 'example@mail.com',
   })
   @Column({ unique: true })

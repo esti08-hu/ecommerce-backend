@@ -8,6 +8,8 @@ import { ProductsService } from 'src/products/products.service';
 import { UsersEntity } from 'src/users/entity/users.entity';
 import { ProductEntity } from 'src/products/enitiy/products.entity';
 import { CategoryEntity } from 'src/products/enitiy/category.entity';
+import { InvoicesService } from './invoices/invoices.service';
+import { InvoicesController } from './invoices/invoices.controller';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { CategoryEntity } from 'src/products/enitiy/category.entity';
       CategoryEntity,
     ]),
   ],
-  controllers: [OrdersController],
-  providers: [OrdersService, UsersService, ProductsService],
+  controllers: [OrdersController, InvoicesController],
+  providers: [OrdersService, UsersService, ProductsService, InvoicesService],
 })
 export class OrdersModule {}

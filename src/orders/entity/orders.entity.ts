@@ -18,7 +18,7 @@ export class OrderEntity {
   user: UsersEntity;
 
   @Column()
-  status: string; // 'placed', 'shipped', 'delivered', 'cancelled', 'returned'
+  status: string;
 
   @Column('decimal')
   total: number;
