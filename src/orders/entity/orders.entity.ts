@@ -1,5 +1,5 @@
-import { ProductEntity } from 'src/products/enitiy/products.entity';
-import { UsersEntity } from 'src/users/entity/users.entity';
+import { ProductEntity } from '../../products/enitiy/products.entity';
+import { UsersEntity } from '../../users/entity/users.entity';
 import {
   Entity,
   Column,
