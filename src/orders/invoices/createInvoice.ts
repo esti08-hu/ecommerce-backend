@@ -2,13 +2,13 @@ import fs from 'fs';
 import PDFDocument from 'pdfkit';
 
 export function createInvoice(invoice, path) {
-  let doc = new PDFDocument({ margin: 50 });
+  const doc = new PDFDocument({ margin: 50 });
 
-  generateHeader(doc, invoice); // Invoke `generateHeader` function.
-  generateFooter(doc, invoice); // Invoke `generateFooter` function.
+  generateHeader(doc, invoice);
+  generateFooter(doc, invoice);
 
-  doc.end();
   doc.pipe(fs.createWriteStream(path));
+  doc.end();
 }
 
 module.exports = {
