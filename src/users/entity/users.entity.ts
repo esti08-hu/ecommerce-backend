@@ -3,6 +3,7 @@ import { Role } from '../../common/enums/permissions.enums';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { OrderEntity } from '../../orders/entity/orders.entity';
 import { CartEntity } from '../../cart/entity/cart.entity';
+import { ReviewEntity } from 'src/reviews/entity/reviews.entity';
 
 @Entity('users')
 export class UsersEntity {
@@ -41,4 +42,7 @@ export class UsersEntity {
 
   @OneToMany(() => CartEntity, (cart) => cart.user)
   carts: CartEntity[];
+
+  @OneToMany(() => ReviewEntity, (review) => review.user)
+  reviews: ReviewEntity[];
 }
