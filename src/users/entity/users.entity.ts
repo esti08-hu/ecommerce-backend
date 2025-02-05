@@ -1,12 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../../common/enums/permissions.enums';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { OrderEntity } from 'src/orders/entity/orders.entity';
+import { OrderEntity } from '../../orders/entity/orders.entity';
+import { CartEntity } from '../../cart/entity/cart.entity';
+import { ReviewEntity } from 'src/reviews/entity/reviews.entity';
 
 @Entity('users')
 export class UsersEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ApiProperty({
+    example: 'John Doe',
+  })
+  @Column()
+  name: string;
 
   @ApiProperty({
     example: 'example@mail.com',
@@ -31,4 +39,10 @@ export class UsersEntity {
 
   @OneToMany(() => OrderEntity, (order) => order.user)
   orders: OrderEntity[];
+
+  @OneToMany(() => CartEntity, (cart) => cart.user)
+  carts: CartEntity[];
+
+  @OneToMany(() => ReviewEntity, (review) => review.user)
+  reviews: ReviewEntity[];
 }

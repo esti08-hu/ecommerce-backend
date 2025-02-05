@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProductEntity } from './enitiy/products.entity';
@@ -103,6 +107,12 @@ export class ProductsService {
 
   async removeCategory(id: number): Promise<void> {
     const category = await this.findCategoryById(id);
+    const products = await this.productsRepository.find({
+      where: { category },
+    });
+    if (products.length > 0) {
+      throw new BadRequestException('Category is related to products.');
+    }
     await this.categoriesRepository.remove(category);
   }
 }

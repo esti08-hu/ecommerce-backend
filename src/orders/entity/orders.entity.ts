@@ -1,5 +1,5 @@
-import { ProductEntity } from 'src/products/enitiy/products.entity';
-import { UsersEntity } from 'src/users/entity/users.entity';
+import { ProductEntity } from '../../products/enitiy/products.entity';
+import { UsersEntity } from '../../users/entity/users.entity';
 import {
   Entity,
   Column,
@@ -18,7 +18,7 @@ export class OrderEntity {
   user: UsersEntity;
 
   @Column()
-  status: string; // 'placed', 'shipped', 'delivered', 'cancelled', 'returned'
+  status: string;
 
   @Column('decimal')
   total: number;

@@ -39,7 +39,7 @@ export class AuthService {
 
     await this.usersRepository.save(newUser);
 
-    const { password, ...userData } = newUser;
+    const { id, password, ...userData } = newUser;
     return userData;
   }
 

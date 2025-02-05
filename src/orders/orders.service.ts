@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderEntity, OrderItemEntity } from './entity/orders.entity';
 import { Repository } from 'typeorm';
@@ -91,6 +95,18 @@ export class OrdersService {
     if (!order) {
       throw new NotFoundException('Order not found');
     }
+
+    const orderItems = await this.orderItemsRepository.find({
+      where: { order: { id } },
+      relations: ['product'],
+    });
+
+    if (orderItems.length > 0) {
+      throw new BadRequestException(
+        'Order is related to order items. Remove order items first.',
+      );
+    }
+
     await this.ordersRepository.remove(order);
   }
 }
